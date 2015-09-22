@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extensionAttribute>
+<displayName>List Preferred WiFi Networks</displayName>
+<description>This will list all the preferred WiFi networks on a computer. </description>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+#&#13;
+#&#13;
+# This extension attribute will list preferred networks saved on a computer.&#13;
+#&#13;
+&#13;
+&#13;
+# Detect our Wi-Fi interface&#13;
+&#13;
+wifi=`networksetup -listallhardwareports | awk "/Wi-Fi/,/Ethernet Address/" | awk 'NR==2' | cut -d " " -f 2`&#13;
+&#13;
+# List preferred networks&#13;
+&#13;
+result=`networksetup -listpreferredwirelessnetworks $wifi | grep -v "Preferred networks on"`&#13;
+&#13;
+	if [ "$result" != "" ]; then&#13;
+		echo "&lt;result&gt;$result&lt;/result&gt;"&#13;
+	else&#13;
+		echo "&lt;result&gt;none&lt;/result&gt;"&#13;
+	fi</scriptContentsMac>
+<scriptContentsWindows/>
+</extensionAttribute>
